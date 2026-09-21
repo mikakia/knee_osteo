@@ -94,3 +94,17 @@ target/
 
 # exclude data from source control by default
 # /data/
+data/processed/AllClinical00_variable_inventory.csv
+data/raw/AllClinical00.csv
+data/raw/koos_womac_crosswalk.csv
+data/raw/misc_crosswalk.csv
+data/raw/oai_pase01_definitions.csv
+data/raw/oai_ces_d01_definitions.csv
+data/raw/oai_charlson01_definitions.csv
+data/raw/oai_koos_womac01_definitions.csv
+data/raw/oai_labcollection01_definitions.csv
+data/raw/oai_nutrition01_definitions.csv
+data/raw/oai_oapain01_definitions.csv
+data/raw/oai_oarisk01_definitions.csv
+data/raw/oai_physfunct01_definitions.csv
+data/raw/oai_sf1201_definitions.csv
