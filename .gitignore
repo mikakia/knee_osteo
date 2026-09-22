@@ -108,3 +108,16 @@ data/raw/oai_oapain01_definitions.csv
 data/raw/oai_oarisk01_definitions.csv
 data/raw/oai_physfunct01_definitions.csv
 data/raw/oai_sf1201_definitions.csv
+data/raw/metadata/AllClinical00.csv
+data/raw/metadata/koos_womac_crosswalk.csv
+data/raw/metadata/misc_crosswalk.csv
+data/raw/metadata/oai_ces_d01_definitions.csv
+data/raw/metadata/oai_charlson01_definitions.csv
+data/raw/metadata/oai_koos_womac01_definitions.csv
+data/raw/metadata/oai_labcollection01_definitions.csv
+data/raw/metadata/oai_nutrition01_definitions.csv
+data/raw/metadata/oai_oapain01_definitions.csv
+data/raw/metadata/oai_oarisk01_definitions.csv
+data/raw/metadata/oai_pase01_definitions.csv
+data/raw/metadata/oai_physfunct01_definitions.csv
+data/raw/metadata/oai_sf1201_definitions.csv
