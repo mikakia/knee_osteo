@@ -1,39 +1,45 @@
-
+import os
 from collections import Counter
 
-import matplotlib.pyplot as plt
+from torch.utils.data import Dataset
 from torchvision import datasets, transforms
 
-folder_dir = "/Users/tsampikakiaourtzi/Google Drive/My Drive/FL-VIP/knee_images"
-knee_images = datasets.ImageFolder(root=folder_dir, transform=transforms.ToTensor())
-print(type(knee_images[0]))
 
-print(f"Classes:{knee_images.classes}")
-print(f"Class and Index: {knee_images.class_to_idx}")
-print(f"Total images: {len(knee_images)}")
+class KneeOsteoDataset(Dataset):
+    
+    """Wraps torchvision.ImageFolder for the knee osteoarthritis dataset."""
 
-counts = Counter(knee_images.targets)
-for class_idx, count in sorted(counts.items()):
-    print(f"Class {knee_images.classes[class_idx]}: {count} images")
+    def __init__(self, root_dir=None, transform=None):
+        if root_dir is None:
+            # Resolve path relative to project root, not hardcoded to your machine
+            root_dir = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                "data", "raw", "knee_images"
+            )
+        if not os.path.exists(root_dir):
+            raise FileNotFoundError(f"Dataset folder not found: {root_dir}")
 
-image, label = knee_images[0]
-print("Image shape:", image.shape)
-print("Class:", knee_images.classes[label])
+        self.root_dir = root_dir
+        self.transform = transform or transforms.ToTensor()
+        self.dataset = datasets.ImageFolder(root=root_dir, transform=self.transform)
 
-class_names = knee_images.classes
-values = [counts[i] for i in range(len(class_names))]
+        self.classes = self.dataset.classes
+        self.class_to_idx = self.dataset.class_to_idx
+        self.targets = self.dataset.targets
 
-# Plotting images per class (bar chart)
-plt.figure(figsize=(8, 5))
-bars = plt.bar(class_names, values, color='purple', edgecolor='black')
+    def __len__(self):
+        return len(self.dataset)
 
-for bar, val in zip(bars, values):
-    plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 20,
-             str(val), ha='center', va='bottom', fontsize=11)
+    def __getitem__(self, idx):
+        return self.dataset[idx]
 
-plt.title('Number of Images per Class')
-plt.xlabel('Class')
-plt.ylabel('Number of Images')
-plt.tight_layout()
-plt.show()
+    def class_counts(self):
+        counts = Counter(self.targets)
+        return {self.classes[i]: counts[i] for i in sorted(counts)}
 
+    def summary(self):
+        print(f"Classes: {self.classes}")
+        print(f"Class to index: {self.class_to_idx}")
+        print(f"Total images: {len(self)}")
+        for cls, count in self.class_counts().items():
+            print(f"Class {cls}: {count} images")
