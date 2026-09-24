@@ -7,11 +7,11 @@ from torchvision import datasets, transforms
 
 class KneeOsteoDataset(Dataset):
     
-    """Wraps torchvision.ImageFolder for the knee osteoarthritis dataset."""
+    
 
     def __init__(self, root_dir=None, transform=None):
         if root_dir is None:
-            # Resolve path relative to project root, not hardcoded to your machine
+            # path to the dataset folder  to this file
             root_dir = os.path.join(
                 os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                 "data", "raw", "knee_images"
