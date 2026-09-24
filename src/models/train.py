@@ -7,7 +7,7 @@ from models.cnn import CNN
 
 
 def train():
-    # ---- Config ----
+    # initialization
     batch_size = 32
     num_epochs = 10
     learning_rate = 0.001
@@ -16,7 +16,7 @@ def train():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    # ---- Data ----
+    # dataset and dataloaders
     dataset = KneeOsteoDataset()
     dataset.summary()
 
@@ -27,12 +27,12 @@ def train():
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-    # ---- Model, loss, optimizer ----
+    # model, loss function, optimizer
     model = CNN(num_classes=len(dataset.classes)).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-    # ---- Training loop ----
+    # training loop
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
@@ -56,7 +56,7 @@ def train():
         train_loss = running_loss / total
         train_acc = correct / total
 
-        # ---- Validation ----
+        # validation 
         model.eval()
         val_loss = 0.0
         val_correct = 0

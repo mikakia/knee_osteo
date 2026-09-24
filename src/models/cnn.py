@@ -11,12 +11,12 @@ class CNN(nn.Module):
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1)
 
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)  # halves H and W each time
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)  # H and W each time
 
-        # After 3 pools on a 224x224 input: 224 -> 112 -> 56 -> 28
+        # after 3 pools on a 224x224 input: 224 -> 112 -> 56 -> 28
         self.flattened_size = 64 * 28 * 28
 
-        # Fully connected classifier head
+        # fully connected classifier head
         self.fc1 = nn.Linear(self.flattened_size, 128)
         self.dropout = nn.Dropout(0.3)
         self.fc2 = nn.Linear(128, num_classes)
