@@ -1,45 +1,56 @@
-import os
-from collections import Counter
+import pandas as pd
+import torch
+from PIL import Image
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms
 
-from torch.utils.data import Dataset
-from torchvision import datasets, transforms
-
+MEAN, STD = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]
 
 class KneeOsteoDataset(Dataset):
-    
-    
+    """One (image,label) pair at a time"""
 
-    def __init__(self, root_dir=None, transform=None):
-        if root_dir is None:
-            # path to the dataset folder  to this file
-            root_dir = os.path.join(
-                os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-                "data", "raw", "knee_images"
-            )
-        if not os.path.exists(root_dir):
-            raise FileNotFoundError(f"Dataset folder not found: {root_dir}")
-
-        self.root_dir = root_dir
-        self.transform = transform or transforms.ToTensor()
-        self.dataset = datasets.ImageFolder(root=root_dir, transform=self.transform)
-
-        self.classes = self.dataset.classes
-        self.class_to_idx = self.dataset.class_to_idx
-        self.targets = self.dataset.targets
+    def __init__(self, table, transform, data_dir):
+        self.table = table.reset_index(drop=True)
+        self.transform = transform
+        self.data_dir = data_dir
 
     def __len__(self):
-        return len(self.dataset)
+        return len(self.table)
 
-    def __getitem__(self, idx):
-        return self.dataset[idx]
+    def __getitem__(self, i):
+        row = self.table.iloc[i]
+        image = Image.open(self.data_dir / row["path"]).convert("RGB") # Converting to 3 color channels as that is what DenseNet expects
+        return self.transform(image), int(row["label"])
 
-    def class_counts(self):
-        counts = Counter(self.targets)
-        return {self.classes[i]: counts[i] for i in sorted(counts)}
+def get_loaders(cfg):
+    size = (cfg.image_size, cfg.image_size)
 
-    def summary(self):
-        print(f"Classes: {self.classes}")
-        print(f"Class to index: {self.class_to_idx}")
-        print(f"Total images: {len(self)}")
-        for cls, count in self.class_counts().items():
-            print(f"Class {cls}: {count} images")
+    # Image transforms mentioned in paper (brightness, saturation, flip horizontal, random affine, normalize)
+    train_tf = transforms.Compose([
+        transforms.Resize(size),
+        transforms.ColorJitter(brightness=0.3, saturation=0.3),
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomAffine(
+            degrees=15, # Rotation in [-15, 15]
+            translate=(0.1,0.1), # Up to 10% shift in x and y
+            scale=(0.9, 1.1), # Zoom in/out
+            shear=10, # Shear in [-10, 10]
+        ),
+        transforms.ToTensor(),
+        transforms.Normalize(MEAN, STD) # Normalized according to ImageNet
+    ])
+
+    eval_tf = transforms.Compose([
+        transforms.Resize(size),
+        transforms.ToTensor(),
+        transforms.Normalize(MEAN, STD),
+    ])
+
+    table = pd.read_csv(cfg.csv_path, dtype={"patient": str})
+    loaders = {}
+    for name, tf in [("train", train_tf), ("val", eval_tf), ("test", eval_tf)]:
+        data = KneeOsteoDataset(table[table["split"] == name], tf, cfg.data_dir)
+        loaders[name] = DataLoader(data, batch_size=cfg.batch_size,
+                                   shuffle=(name == "train"),
+                                   num_workers=cfg.num_workers)
+    return loaders

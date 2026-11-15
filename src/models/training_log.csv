@@ -1,0 +1,46 @@
+=== Run started 2026-11-15 21:41 ===
+Settings: Config(data_dir=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/knee_images'), csv_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/images.csv'), model_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models'), log_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/training_log.csv'), history_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/history.csv'), class_folders=('0', '1', '2', '3', '4'), val_fraction=0.1, test_fraction=0.2, seed=28, num_classes=5, image_size=224, batch_size=28, num_workers=4, epochs=100, learning_rate=0.0001, patience=5)
+Epoch  1 | lr 1.00e-04 | train loss 1.817 MAE 0.851 | val loss 1.588 acc 0.485 MAE 0.710
+
+=== Run started 2026-11-15 21:49 ===
+NOTE: before CORN
+Settings: Config(data_dir=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/knee_images'), csv_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/images.csv'), model_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/best_model.pt'), log_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/training_log.csv'), history_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/history.csv'), class_folders=('0', '1', '2', '3', '4'), val_fraction=0.1, test_fraction=0.2, seed=28, num_classes=5, image_size=224, batch_size=28, num_workers=4, epochs=100, learning_rate=0.0001, patience=5)
+Epoch  1 | lr 1.00e-04 | train loss 1.817 MAE 0.851 | val loss 1.588 acc 0.485 MAE 0.710 | 1.7 min
+Epoch  2 | lr 1.00e-04 | train loss 1.614 MAE 0.706 | val loss 1.569 acc 0.521 MAE 0.628 | 1.8 min
+Epoch  3 | lr 1.00e-04 | train loss 1.557 MAE 0.661 | val loss 1.503 acc 0.509 MAE 0.643 | 1.7 min
+Epoch  4 | lr 1.00e-04 | train loss 1.509 MAE 0.645 | val loss 1.527 acc 0.511 MAE 0.622 | 1.9 min
+Epoch  5 | lr 5.00e-05 | train loss 1.494 MAE 0.638 | val loss 1.511 acc 0.526 MAE 0.609 | 1.7 min
+Epoch  6 | lr 5.00e-05 | train loss 1.446 MAE 0.607 | val loss 1.483 acc 0.532 MAE 0.605 | 1.7 min
+Epoch  7 | lr 5.00e-05 | train loss 1.423 MAE 0.582 | val loss 1.514 acc 0.512 MAE 0.629 | 1.7 min
+Epoch  8 | lr 5.00e-05 | train loss 1.411 MAE 0.580 | val loss 1.492 acc 0.542 MAE 0.586 | 1.8 min
+Epoch  9 | lr 5.00e-05 | train loss 1.392 MAE 0.570 | val loss 1.467 acc 0.529 MAE 0.596 | 1.7 min
+Epoch 10 | lr 2.50e-05 | train loss 1.371 MAE 0.561 | val loss 1.479 acc 0.534 MAE 0.589 | 1.7 min
+Epoch 11 | lr 2.50e-05 | train loss 1.335 MAE 0.530 | val loss 1.468 acc 0.521 MAE 0.606 | 1.7 min
+Epoch 12 | lr 2.50e-05 | train loss 1.329 MAE 0.533 | val loss 1.472 acc 0.539 MAE 0.576 | 1.7 min
+Epoch 13 | lr 2.50e-05 | train loss 1.305 MAE 0.525 | val loss 1.456 acc 0.528 MAE 0.585 | 1.7 min
+Epoch 14 | lr 2.50e-05 | train loss 1.294 MAE 0.507 | val loss 1.462 acc 0.545 MAE 0.566 | 1.7 min
+
+=== Run started 2026-11-15 22:21 ===
+NOTE: Splitting data at patient level
+Settings: Config(data_dir=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/knee_images'), csv_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/images.csv'), model_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/best_model.pt'), log_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/training_log.csv'), history_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/history.csv'), class_folders=('0', '1', '2', '3', '4'), val_fraction=0.1, test_fraction=0.2, seed=28, num_classes=5, image_size=224, batch_size=28, num_workers=4, epochs=100, learning_rate=0.0001, patience=5)
+Epoch  1 | lr 1.00e-04 | train loss 0.512 MAE 0.653 | val loss 0.662 acc 0.536 MAE 0.635 | 1.8 min
+Epoch  2 | lr 1.00e-04 | train loss 0.419 MAE 0.465 | val loss 0.417 acc 0.619 MAE 0.495 | 1.7 min
+Epoch  3 | lr 1.00e-04 | train loss 0.384 MAE 0.423 | val loss 0.381 acc 0.669 MAE 0.395 | 1.7 min
+Epoch  4 | lr 1.00e-04 | train loss 0.363 MAE 0.396 | val loss 0.406 acc 0.683 MAE 0.367 | 1.8 min
+Epoch  5 | lr 5.00e-05 | train loss 0.358 MAE 0.391 | val loss 0.363 acc 0.700 MAE 0.354 | 1.8 min
+Epoch  6 | lr 5.00e-05 | train loss 0.322 MAE 0.328 | val loss 0.386 acc 0.700 MAE 0.332 | 1.8 min
+Epoch  7 | lr 5.00e-05 | train loss 0.306 MAE 0.316 | val loss 0.383 acc 0.702 MAE 0.327 | 1.8 min
+Epoch  8 | lr 5.00e-05 | train loss 0.299 MAE 0.308 | val loss 0.428 acc 0.699 MAE 0.347 | 1.8 min
+Epoch  9 | lr 5.00e-05 | train loss 0.284 MAE 0.294 | val loss 0.372 acc 0.708 MAE 0.347 | 1.8 min
+Epoch 10 | lr 2.50e-05 | train loss 0.280 MAE 0.285 | val loss 0.407 acc 0.699 MAE 0.358 | 1.8 min
+Epoch 11 | lr 2.50e-05 | train loss 0.246 MAE 0.242 | val loss 0.389 acc 0.712 MAE 0.330 | 1.7 min
+Epoch 12 | lr 2.50e-05 | train loss 0.230 MAE 0.226 | val loss 0.385 acc 0.696 MAE 0.361 | 1.7 min
+Validation MAE stopped imporving, stopping early.
+Best validation MAE: 0.327
+
+=== Run started 2026-11-15 22:55 ===
+Settings: Config(data_dir=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/knee_images'), csv_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/data/raw/images_image_split.csv'), model_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/best_model.pt'), log_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/training_log.csv'), history_path=WindowsPath('C:/Users/Ieva/Documents/GitHub/knee_osteo/src/models/history.csv'), class_folders=('0', '1', '2', '3', '4'), split_by='image', val_fraction=0.1, test_fraction=0.2, seed=28, num_classes=5, image_size=224, batch_size=28, num_workers=4, epochs=100, learning_rate=0.0001, patience=5)
+Epoch  1 | lr 1.00e-04 | train loss 0.518 MAE 0.662 | val loss 0.513 acc 0.575 MAE 0.495 | 1.8 min
+Epoch  2 | lr 1.00e-04 | train loss 0.412 MAE 0.472 | val loss 0.434 acc 0.663 MAE 0.414 | 1.8 min
+Epoch  3 | lr 1.00e-04 | train loss 0.390 MAE 0.435 | val loss 0.397 acc 0.645 MAE 0.428 | 1.8 min
+Epoch  4 | lr 1.00e-04 | train loss 0.380 MAE 0.414 | val loss 0.403 acc 0.656 MAE 0.391 | 1.7 min
