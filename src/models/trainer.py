@@ -22,6 +22,8 @@ class Trainer:
     def run_epoch(self, split):
         training = (split == "train")
         self.model.train(training)
+        if training and self.cfg.freeze_backbone:
+            self.model.features.eval() # Keeps the batchnorm statistics fixed in the backbone since it's frozen
         total_loss, abs_error, correct, count = 0.0, 0, 0, 0
 
         with torch.set_grad_enabled(training):
@@ -61,9 +63,9 @@ class Trainer:
 
                 if self.scheduler is not None:
                     if isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
-                        self.scheduler.step(va_mae)      # needs the metric to watch
+                        self.scheduler.step(va_mae)
                     else:
-                        self.scheduler.step()            # StepLR, Cosine, etc.
+                        self.scheduler.step()          
 
                 lr = self.optimizer.param_groups[0]["lr"]
 

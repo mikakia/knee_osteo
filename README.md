@@ -3,7 +3,53 @@ To be able to use the packages(such as datafunctions which was not visible to th
 
 # Project Template
 
+## Training a model
+1. Ensure all paths and settings are correct in config file.
+2. Run prepare_data.py which will create a CSV that contains the data split. dataset.py depends on this CSV.
+3. Run train.py which will train a model, print out logs per epoch, save the best performing model, and save logs of training.
+4. Run test.py which will give a summary of the testing, as well as a confusion matrix.
+
+To adjust optimizer and scheduler, change these in train.py. It currently uses ADAM and StepLR.
+base_model.py is currently DenseNet-161, and has the option of training all layers or just the output head. Important: output head = grades - 1 to work with CORN loss. Change the output if changing the loss function.
+trainer.py and test.py are also currently set up with the assumption that we are using CORN loss, which then obtain labels from the custom output head.
+
+training_log.csv is a massive file that contains all logs of all training attempts, including the configuration, while history.csv is individual per model training and only contains the training/validation stats.
+
+
 ## Project Organization
+
+fl_vip/
+├── fl_vip/
+│   ├── __init__.py
+│   ├── datafunctions/
+│   │   ├── __init__.py
+│   │   ├── prepare_data.py     <- Creates a CSV file at csv_path of the data split, can choose according to image or patient
+│   │   └── dataset.py          <- Creates the loaders
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── base_model.py       <- Currently DenseNet-161. Grades-1 output for CORN loss, has option whether to freeze all but prediction head.
+|   |   ├── trainer.py          <- Does the actual training, calculates loss per epoch, does print-outs
+|   |   ├── train.py            <- Trains a given model
+|   |   ├── test.py             <- Runs the test partition on model, prints out stats and confusion matrix
+│   │   └── cnn.py
+│   ├── federated/
+│   │   ├── __init__.py
+│   │   ├── client.py
+│   │   ├── server.py
+│   │   └── trainer.py
+│   └── viz/
+│       ├── __init__.py
+│       └── visualizer.py
+├── config.py                   <- Contains all configurations for training/splitting/model saving etc.
+├── check_sizes.py              <- Used to check sizes and color channels of images
+├── main.py
+├── requirements.txt
+└── .env (optional, for local overrides)
+
+
+
+
+
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
@@ -46,33 +92,6 @@ To be able to use the packages(such as datafunctions which was not visible to th
     └── services                <- Service classes to connect with external platforms, tools, or APIs
         └── __init__.py 
 ```
-
-
-fl_vip/
-├── fl_vip/
-│   ├── __init__.py
-│   ├── data/
-│   │   ├── __init__.py
-│   │   ├── dataset.py
-│   │   └── partitioner.py
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── base_model.py
-│   │   └── cnn.py
-│   ├── federated/
-│   │   ├── __init__.py
-│   │   ├── client.py
-│   │   ├── server.py
-│   │   └── trainer.py
-│   └── viz/
-│       ├── __init__.py
-│       └── visualizer.py
-├── main.py
-├── requirements.txt
-└── .env (optional, for local overrides)
-
-
-
 
 
 # Data Project Template

@@ -31,7 +31,7 @@ def get_loaders(cfg):
         transforms.ColorJitter(brightness=0.3, saturation=0.3),
         transforms.RandomHorizontalFlip(p=0.5),
         transforms.RandomAffine(
-            degrees=15, # Rotation in [-15, 15]
+            degrees=10, # Rotation in [-10, 10]
             translate=(0.1,0.1), # Up to 10% shift in x and y
             scale=(0.9, 1.1), # Zoom in/out
             shear=10, # Shear in [-10, 10]
